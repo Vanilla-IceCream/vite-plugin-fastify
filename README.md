@@ -21,6 +21,7 @@ $ yarn add vite-plugin-fastify
     // ...
     "dev": "vite",
     "build": "vite build",
+    "preview": "node dist/server.mjs"
     // ...
   }
 ```
@@ -88,10 +89,10 @@ start();
 
 - WebSocket is not supported.
 
-```ts
-// TODO: restartable
-fastify({
-  // ...
-  restartable: true,
-}),
+```sh
+$ pnpm install nodemon vite-node -D
+```
+
+```diff
++ "dev:ws": "nodemon -e \"js,ts,mjs,mts,json,json5\" -x \"vite-node ./src/server.ts\" -w \"src/**/*\"",
 ```
