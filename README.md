@@ -85,14 +85,13 @@ const start = async () => {
 start();
 ```
 
-## Known Issues
-
-- WebSocket is not supported.
+## WebSocket
 
 ```sh
 $ pnpm install nodemon vite-node -D
 ```
 
 ```diff
-+ "dev:ws": "nodemon -e \"js,ts,mjs,mts,json,json5\" -x \"vite-node ./src/server.ts\" -w \"src/**/*\"",
+- "dev": "vite",
++ "dev": "nodemon -e \"js,ts,mjs,mts,json,json5\" -x \"vite-node ./src/server.ts\" -w \"src/**/*\"",
 ```
