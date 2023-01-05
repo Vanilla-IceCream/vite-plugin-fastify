@@ -2,14 +2,18 @@
 
 Fastify plugin for Vite.
 
-## Install
+## Installation
 
-```bash
-$ npm i vite-plugin-fastify
+Install `vite-plugin-fastify` with your favorite package manager:
+
+```sh
+$ npm i vite-plugin-fastify -D
 # or
-$ pnpm i vite-plugin-fastify
+$ yarn add vite-plugin-fastify -D
 # or
-$ yarn add vite-plugin-fastify
+$ pnpm i vite-plugin-fastify -D
+# or
+$ bun add vite-plugin-fastify -D
 ```
 
 ## Usage
@@ -18,11 +22,9 @@ $ yarn add vite-plugin-fastify
 // package.json
 
   "scripts": {
-    // ...
     "dev": "vite",
     "build": "vite build",
     "preview": "node dist/server.mjs"
-    // ...
   }
 ```
 
@@ -88,7 +90,13 @@ start();
 ## WebSocket
 
 ```sh
-$ pnpm install nodemon vite-node -D
+$ npm i nodemon vite-node -D
+# or
+$ yarn add nodemon vite-node -D
+# or
+$ pnpm i nodemon vite-node -D
+# or
+$ bun add nodemon vite-node -D
 ```
 
 ```diff
