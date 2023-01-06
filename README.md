@@ -20,17 +20,20 @@ $ bun add vite-plugin-fastify -D
 
 ```json5
 // package.json
-
+{
+  // ...
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "node dist/server.mjs"
   }
+  // ...
+}
 ```
 
 ```ts
 // vite.config.ts
-import path from 'path';
+import { resolve } from 'path';
 import { defineConfig } from 'vite';
 import fastify from 'vite-plugin-fastify';
 
@@ -46,7 +49,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '~': path.resolve(__dirname, 'src'),
+      '~': resolve(__dirname, 'src'),
     },
   },
 });
@@ -54,9 +57,10 @@ export default defineConfig({
 
 ```ts
 // src/app.ts
+import type { FastifyServerOptions } from 'fastify';
 import fastify from 'fastify';
 
-const app = async (options = {}) => {
+const app = async (options: FastifyServerOptions = {}) => {
   const app = fastify(options);
 
   app.get('/api/hello-world', async (req, reply) => {

@@ -10,4 +10,7 @@ export default defineConfig({
     },
   },
   plugins: [dts()],
+  test: {
+    testTimeout: 10_000,
+  },
 });

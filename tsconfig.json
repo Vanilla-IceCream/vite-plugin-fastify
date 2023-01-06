@@ -1,15 +1,30 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
-    "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "Node",
-    "strict": true,
-    "declaration": true,
-    "sourceMap": true,
     "noUnusedLocals": true,
-    "esModuleInterop": true
+    "strict": true,
+    "strictNullChecks": true,
+
+    "baseUrl": ".",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "paths": {
+      "~/*": ["src/*"]
+    },
+    "resolveJsonModule": true,
+    "types": ["vite/client", "vitest"],
+
+    "noEmit": true,
+
+    "allowJs": true,
+
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "jsx": "preserve",
+    "lib": ["ESNext", "DOM"],
+    "target": "esnext",
+
+    "skipLibCheck": true
   },
-  "include": ["src"],
-  "exclude": ["**/*.spec.ts"]
+  "exclude": ["node_modules", "dist", "coverage"]
 }
