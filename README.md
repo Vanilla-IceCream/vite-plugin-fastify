@@ -1,6 +1,6 @@
 # vite-plugin-fastify
 
-Fastify plugin for Vite.
+Fastify plugin for Vite with Hot-module Replacement.
 
 ## Installation
 
@@ -39,6 +39,7 @@ import fastify from 'vite-plugin-fastify';
 
 export default defineConfig({
   server: {
+    host: '127.0.0.1',
     port: 3000,
   },
   plugins: [
@@ -81,7 +82,7 @@ const start = async () => {
   const server = await app();
 
   try {
-    server.listen({ port: 3000 });
+    server.listen({ host: '127.0.0.1', port: 3000 });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
@@ -91,19 +92,53 @@ const start = async () => {
 start();
 ```
 
-## WebSocket
+## Known Issues
 
-```sh
-$ npm i nodemon vite-node -D
-# or
-$ yarn add nodemon vite-node -D
-# or
-$ pnpm i nodemon vite-node -D
-# or
-$ bun add nodemon vite-node -D
-```
+This plugin does not support:
+
+- WebSocket
+- Large Modules (slower than `vite-node`)
+
+For a workaround, use `vite-node`:
 
 ```diff
 - "dev": "vite",
-+ "dev": "nodemon -e \"js,ts,mjs,mts,json,json5\" -x \"vite-node ./src/server.ts\" -w \"src/**/*\"",
++ "dev": "vite-node -w src/server.ts",
 ```
+
+```ts
+// vite.config.ts
+  plugins: [
+    fastify({
+      appPath: './src/app.ts',
+      serverPath: './src/server.ts',
+      devMode: false,
+    }),
+  ],
+```
+
+```ts
+// src/server.ts
+const start = async () => {
+  const server = await app();
+
+  try {
+    server.listen({ host: '127.0.0.1', port: 3000 });
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+
+  if (import.meta.hot) {
+    import.meta.hot.on('vite:beforeFullReload', () => {
+      server.close();
+    });
+
+    import.meta.hot.dispose(() => {
+      server.close();
+    });
+  }
+};
+```
+
+See the [`examples`](./examples) folder for more details.

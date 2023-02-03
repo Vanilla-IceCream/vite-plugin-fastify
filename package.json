@@ -1,7 +1,7 @@
 {
   "name": "vite-plugin-fastify",
-  "version": "1.1.0",
-  "description": "Fastify plugin for Vite.",
+  "version": "1.2.0",
+  "description": "Fastify plugin for Vite with Hot-module Replacement.",
   "main": "./dist/vite-plugin-fastify.cjs",
   "module": "./dist/vite-plugin-fastify.js",
   "types": "./dist/vite-plugin-fastify.d.ts",
@@ -38,12 +38,12 @@
     "@fastify/one-line-logger": "^1.1.1"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.26.3",
-    "fastify": "^4.11.0",
+    "@vitest/coverage-c8": "^0.28.3",
+    "fastify": "^4.12.0",
     "node-fetch": "^3.3.0",
-    "typescript": "^4.9.4",
-    "vite": "^4.0.4",
-    "vite-plugin-dts": "^1.7.1",
-    "vitest": "^0.26.3"
+    "typescript": "^4.9.5",
+    "vite": "^4.1.1",
+    "vite-plugin-dts": "^1.7.2",
+    "vitest": "^0.28.3"
   }
 }
