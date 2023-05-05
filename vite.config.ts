@@ -8,6 +8,9 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/vite-plugin-fastify.ts'),
       formats: ['es', 'cjs'],
     },
+    rollupOptions: {
+      external: ['child_process', 'path'],
+    },
   },
   plugins: [dts()],
   test: {
