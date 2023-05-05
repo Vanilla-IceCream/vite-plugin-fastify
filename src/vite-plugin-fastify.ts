@@ -35,6 +35,8 @@ export default (options: VitePluginFastifyOptions = {}): Plugin => {
           target: `http://${config.server?.host}:${config.server?.port}`,
         };
       }
+
+      if (!config.clearScreen) config.clearScreen = false;
     },
     configureServer(server) {
       if (devMode) {
@@ -63,7 +65,10 @@ export default (options: VitePluginFastifyOptions = {}): Plugin => {
       }
     },
     configurePreviewServer() {
-      spawn('node', ['dist/server.mjs'], {
+      const fileExtension = path.extname(serverPath);
+      const fileName = path.basename(serverPath, fileExtension);
+
+      spawn('node', [`dist/${fileName}.mjs`], {
         stdio: 'inherit',
       });
     },
