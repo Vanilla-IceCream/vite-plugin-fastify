@@ -18,18 +18,25 @@ $ bun add vite-plugin-fastify -D
 
 ## Usage
 
-```json5
-// package.json
+### Add Scripts
+
+Add the following scripts to your `package.json` file:
+
+```json
 {
   // ...
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "node dist/server.mjs"
+    "preview": "vite preview"
   }
   // ...
 }
 ```
+
+### Configuration
+
+Add the following configuration to your `vite.config.ts`:
 
 ```ts
 // vite.config.ts
@@ -44,8 +51,8 @@ export default defineConfig({
   },
   plugins: [
     fastify({
-      appPath: './src/app.ts',
-      serverPath: './src/server.ts',
+      appPath: './src/app.ts', // Default: <rootDir>/src/app.ts
+      serverPath: './src/server.ts', // Default: <rootDir>/src/server.ts
     }),
   ],
   resolve: {
@@ -94,31 +101,28 @@ start();
 
 ## Known Issues
 
-This plugin does not support:
+This plugin does not support WebSocket.
 
-- WebSocket
-- Large Modules (slower than `vite-node`)
-
-For a workaround, use `vite-node`:
+For a workaround, use `vite-node` for development:
 
 ```diff
 - "dev": "vite",
 + "dev": "vite-node -w src/server.ts",
 ```
 
-```ts
-// vite.config.ts
+Set to `false` to disable HMR during development:
+
+```diff
   plugins: [
     fastify({
-      appPath: './src/app.ts',
-      serverPath: './src/server.ts',
-      devMode: false,
++     devMode: false,
     }),
   ],
 ```
 
-```ts
-// src/server.ts
+Add `import.meta.hot` support to vite-node for HMR:
+
+```diff
 const start = async () => {
   const server = await app();
 
@@ -129,15 +133,15 @@ const start = async () => {
     process.exit(1);
   }
 
-  if (import.meta.hot) {
-    import.meta.hot.on('vite:beforeFullReload', () => {
-      server.close();
-    });
++ if (import.meta.hot) {
++   import.meta.hot.on('vite:beforeFullReload', () => {
++     server.close();
++   });
 
-    import.meta.hot.dispose(() => {
-      server.close();
-    });
-  }
++   import.meta.hot.dispose(() => {
++     server.close();
++   });
++ }
 };
 ```
 
