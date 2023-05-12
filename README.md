@@ -65,11 +65,10 @@ export default defineConfig({
 
 ```ts
 // src/app.ts
-import type { FastifyServerOptions } from 'fastify';
 import fastify from 'fastify';
 
-const app = async (options: FastifyServerOptions = {}) => {
-  const app = fastify(options);
+export default () => {
+  const app = fastify();
 
   app.get('/api/hello-world', async (req, reply) => {
     return reply.send('Hello, World!');
@@ -77,19 +76,17 @@ const app = async (options: FastifyServerOptions = {}) => {
 
   return app;
 };
-
-export default app;
 ```
 
 ```ts
 // src/server.ts
 import app from './app';
 
-const start = async () => {
-  const server = await app();
+const server = app();
 
+const start = () => {
   try {
-    server.listen({ host: '127.0.0.1', port: 3000 });
+    await server.listen({ host: '127.0.0.1', port: 3000 });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
@@ -124,22 +121,20 @@ Add `import.meta.hot` support to vite-node for HMR:
 
 ```diff
 const start = async () => {
-  const server = await app();
-
   try {
-    server.listen({ host: '127.0.0.1', port: 3000 });
+    await server.listen({ host: '127.0.0.1', port: 3000 });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
   }
 
 + if (import.meta.hot) {
-+   import.meta.hot.on('vite:beforeFullReload', () => {
-+     server.close();
++   import.meta.hot.on('vite:beforeFullReload', async () => {
++     await server.close();
 +   });
 
-+   import.meta.hot.dispose(() => {
-+     server.close();
++   import.meta.hot.dispose(async () => {
++     await server.close();
 +   });
 + }
 };

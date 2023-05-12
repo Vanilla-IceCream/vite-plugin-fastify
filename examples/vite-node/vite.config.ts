@@ -5,8 +5,6 @@ import fastify from 'vite-plugin-fastify';
 export default defineConfig({
   plugins: [
     fastify({
-      appPath: './src/app.ts',
-      serverPath: './src/server.ts',
       devMode: false,
     }),
   ],

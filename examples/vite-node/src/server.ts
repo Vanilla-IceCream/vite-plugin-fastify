@@ -1,28 +1,22 @@
 import app from './app';
 
-const start = async () => {
-  const server = await app({
-    logger: {
-      transport: {
-        target: '@fastify/one-line-logger',
-      },
-    },
-  });
+const server = app();
 
+const start = async () => {
   try {
-    server.listen({ host: '127.0.0.1', port: 3000 });
+    await server.listen({ host: '127.0.0.1', port: 3000 });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
   }
 
   if (import.meta.hot) {
-    import.meta.hot.on('vite:beforeFullReload', () => {
-      server.close();
+    import.meta.hot.on('vite:beforeFullReload', async () => {
+      await server.close();
     });
 
-    import.meta.hot.dispose(() => {
-      server.close();
+    import.meta.hot.dispose(async () => {
+      await server.close();
     });
   }
 };

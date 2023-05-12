@@ -9,11 +9,8 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
-      external: ['child_process', 'path'],
+      external: ['child_process', 'path', 'vite'],
     },
   },
   plugins: [dts()],
-  test: {
-    testTimeout: 10_000,
-  },
 });

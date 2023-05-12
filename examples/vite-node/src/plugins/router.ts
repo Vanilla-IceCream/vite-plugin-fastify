@@ -4,7 +4,7 @@ export default plugin(
   async (app, opts) => {
     const { prefix } = opts;
 
-    app.register(import('~/modules/hello'), { prefix: prefix + '/hello' });
+    app.register(import('~/routes/hello'), { prefix: prefix + '/hello' });
   },
   { name: 'router' },
 );

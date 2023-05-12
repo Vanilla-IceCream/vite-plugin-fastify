@@ -1,42 +1,45 @@
 import type { Plugin } from 'vite';
-import type { FastifyServerOptions } from 'fastify';
 import { spawn } from 'child_process';
 import path from 'path';
+import { mergeConfig } from 'vite';
 
-export interface VitePluginFastifyOptions {
+export interface PluginOptions {
   appPath?: string;
   serverPath?: string;
   devMode?: boolean;
-  fastify?: FastifyServerOptions;
 }
 
-export default (options: VitePluginFastifyOptions = {}): Plugin => {
+export default (options: PluginOptions = {}): Plugin => {
   const {
     appPath = path.resolve(process.cwd(), './src/app.ts'),
     serverPath = path.resolve(process.cwd(), './src/server.ts'),
     devMode = true,
-    fastify,
   } = options;
 
   return {
     name: 'vite-plugin-fastify',
     config(config, { command }) {
       const entry = command === 'build' ? serverPath : appPath;
-      if (!config.build) config.build = {};
-      if (!config.build.ssr) config.build.ssr = true;
-      if (!config.build.rollupOptions) config.build.rollupOptions = {};
-      if (!config.build.rollupOptions.input) config.build.rollupOptions.input = entry;
 
-      if (!config.preview) config.preview = {};
-      if (!config.preview.proxy) config.preview.proxy = {};
+      const fileExtension = path.extname(serverPath);
+      const fileName = path.basename(serverPath, fileExtension);
 
-      if (!config.preview.proxy['/']) {
-        config.preview.proxy['/'] = {
-          target: `http://${config.server?.host}:${config.server?.port}`,
-        };
-      }
-
-      if (!config.clearScreen) config.clearScreen = false;
+      return mergeConfig(config, {
+        build: {
+          ssr: true,
+          rollupOptions: {
+            input: {
+              [fileName]: entry,
+            },
+          },
+        },
+        preview: {
+          '/': {
+            target: `http://${config.server?.host}:${config.server?.port}`,
+          },
+        },
+        clearScreen: false,
+      });
     },
     configureServer(server) {
       if (devMode) {
@@ -49,14 +52,11 @@ export default (options: VitePluginFastifyOptions = {}): Plugin => {
             server.config.logger.error(`export 'default' was not found in '${appPath}'`);
             process.exit(1);
           } else {
-            app = await app({
-              logger: {
-                transport: {
-                  target: '@fastify/one-line-logger',
-                },
-              },
-              ...fastify,
-            });
+            if (app.constructor.name === 'AsyncFunction') {
+              app = await app();
+            } else {
+              app = app();
+            }
 
             await app.ready();
             app.routing(req, res);

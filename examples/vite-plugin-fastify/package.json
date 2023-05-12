@@ -6,11 +6,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "fastify": "^4.12.0",
+    "@fastify/one-line-logger": "^1.1.1",
+    "fastify": "^4.17.0",
     "fastify-plugin": "^4.5.0"
   },
   "devDependencies": {
-    "vite": "^4.1.1",
-    "vite-plugin-fastify": "link:../../"
+    "typescript": "^5.0.4",
+    "vite": "^4.3.5",
+    "vite-plugin-fastify": "link:../../",
+    "vitest": "^0.31.0"
   }
 }
