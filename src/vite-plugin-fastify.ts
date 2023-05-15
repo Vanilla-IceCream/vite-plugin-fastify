@@ -24,7 +24,18 @@ export default (options: PluginOptions = {}): Plugin => {
       const fileExtension = path.extname(serverPath);
       const fileName = path.basename(serverPath, fileExtension);
 
+      const HOST = config.define?.['process.env.HOST']
+        ? JSON.parse(config.define?.['process.env.HOST'])
+        : config.server?.host;
+      const PORT = config.define?.['process.env.PORT']
+        ? JSON.parse(config.define?.['process.env.PORT'])
+        : config.server?.port;
+
       return mergeConfig(config, {
+        server: {
+          host: HOST,
+          port: PORT,
+        },
         build: {
           ssr: true,
           rollupOptions: {
@@ -34,8 +45,10 @@ export default (options: PluginOptions = {}): Plugin => {
           },
         },
         preview: {
-          '/': {
-            target: `http://${config.server?.host}:${config.server?.port}`,
+          proxy: {
+            '/': {
+              target: `http://${HOST}:${PORT}/`,
+            },
           },
         },
         clearScreen: false,
