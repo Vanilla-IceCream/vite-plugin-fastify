@@ -141,3 +141,7 @@ const start = async () => {
 ```
 
 See the [`examples`](./examples) folder for more details.
+
+## File-based Routing
+
+- [vite-plugin-fastify-routes](https://github.com/Vanilla-IceCream/vite-plugin-fastify-routes)
