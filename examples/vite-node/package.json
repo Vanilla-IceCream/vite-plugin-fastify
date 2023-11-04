@@ -1,20 +1,21 @@
 {
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite-node -w src/server.ts",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fastify/one-line-logger": "^1.1.1",
-    "fastify": "^4.17.0",
-    "fastify-plugin": "^4.5.0"
+    "@fastify/one-line-logger": "^1.2.0",
+    "fastify": "^4.24.3",
+    "fastify-plugin": "^4.5.1"
   },
   "devDependencies": {
-    "typescript": "^5.0.4",
-    "vite": "^4.3.5",
-    "vite-node": "^0.31.0",
-    "vite-plugin-fastify": "link:../../",
-    "vitest": "^0.31.0"
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0",
+    "vite-node": "^0.34.6",
+    "vite-plugin-fastify": "workspace:*",
+    "vitest": "^0.34.6"
   }
 }
