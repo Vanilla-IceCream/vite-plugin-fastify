@@ -4,7 +4,7 @@ import { test, expect } from 'vitest';
 import { createServer, build, preview } from 'vite';
 import { ofetch } from 'ofetch';
 
-import fastify from './vite-plugin-fastify';
+import fastify from '../vite-plugin-fastify';
 
 const appPath = path.resolve(__dirname, '../examples/vite-plugin-fastify/src/app.ts');
 const serverPath = path.resolve(__dirname, '../examples/vite-plugin-fastify/src/server.ts');

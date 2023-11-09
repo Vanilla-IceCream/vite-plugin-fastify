@@ -4,7 +4,7 @@
   "description": "Fastify plugin for Vite with Hot-module Replacement.",
   "main": "./dist/vite-plugin-fastify.cjs",
   "module": "./dist/vite-plugin-fastify.js",
-  "types": "./dist/vite-plugin-fastify.d.ts",
+  "types": "./dist/src/vite-plugin-fastify.d.ts",
   "type": "module",
   "files": [
     "dist"

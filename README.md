@@ -25,6 +25,7 @@ Add the following scripts to your `package.json` file:
 ```json
 {
   // ...
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
