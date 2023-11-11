@@ -81,8 +81,12 @@ export default (options: PluginOptions = {}): Plugin => {
       const fileExtension = path.extname(serverPath);
       const fileName = path.basename(serverPath, fileExtension);
 
-      spawn('node', [`dist/${fileName}.js`], {
+      const serverProcess = spawn('node', [`dist/${fileName}.js`], {
         stdio: 'inherit',
+      });
+
+      process.on('exit', () => {
+        serverProcess.kill();
       });
     },
   };

@@ -6,8 +6,9 @@ import { ofetch } from 'ofetch';
 
 import fastify from '../vite-plugin-fastify';
 
-const appPath = path.resolve(__dirname, '../examples/vite-plugin-fastify/src/app.ts');
-const serverPath = path.resolve(__dirname, '../examples/vite-plugin-fastify/src/server.ts');
+const srcPath = path.resolve(__dirname, '../../examples/vite-plugin-fastify-define/src');
+const appPath = path.resolve(__dirname, srcPath, 'app.ts');
+const serverPath = path.resolve(__dirname, srcPath, 'server.ts');
 
 test('vite-plugin-fastify', () => {
   const plugin = fastify({
@@ -25,7 +26,7 @@ test('vite', async () => {
       rollupOptions: {
         output: {
           dir: path.resolve(__dirname, './dist'),
-          format: 'cjs',
+          format: 'es',
         },
       },
     },
@@ -35,19 +36,24 @@ test('vite', async () => {
         serverPath,
       }),
     ],
+    resolve: {
+      alias: {
+        '~': srcPath,
+      },
+    },
   });
 
   await server.listen();
 
-  const file = await fs.readFile(path.resolve(appPath, 'src/routes/hello.ts'));
+  const file = await fs.readFile(path.resolve(srcPath, 'routes/hello.ts'));
   const data = file.toString().replace('Hello, Fastify!', 'Hello, vite-plugin-fastify!');
-  await fs.writeFile(path.resolve(appPath, 'src/routes/hello.ts'), data);
-  await ofetch('http://localhost:5173/hello');
+  await fs.writeFile(path.resolve(srcPath, 'routes/hello.ts'), data);
+  await ofetch('http://localhost:5173/api/hello');
 
-  const file2 = await fs.readFile(path.resolve(appPath, 'src/routes/hello.ts'));
+  const file2 = await fs.readFile(path.resolve(srcPath, 'routes/hello.ts'));
   const data2 = file2.toString().replace('Hello, vite-plugin-fastify!', 'Hello, Fastify!');
-  await fs.writeFile(path.resolve(appPath, 'src/routes/hello.ts'), data2);
-  await ofetch('http://localhost:5173/hello');
+  await fs.writeFile(path.resolve(srcPath, 'routes/hello.ts'), data2);
+  await ofetch('http://localhost:5173/api/hello');
 
   await server.close();
 });
@@ -59,7 +65,7 @@ test('vite build', async () => {
       rollupOptions: {
         output: {
           dir: path.resolve(__dirname, './dist'),
-          format: 'cjs',
+          format: 'es',
         },
       },
     },
@@ -69,6 +75,11 @@ test('vite build', async () => {
         serverPath,
       }),
     ],
+    resolve: {
+      alias: {
+        '~': srcPath,
+      },
+    },
   });
 });
 
@@ -79,7 +90,7 @@ test('vite preview', async () => {
       rollupOptions: {
         output: {
           dir: path.resolve(__dirname, './dist'),
-          format: 'cjs',
+          format: 'es',
         },
       },
     },
@@ -89,10 +100,15 @@ test('vite preview', async () => {
         serverPath,
       }),
     ],
+    resolve: {
+      alias: {
+        '~': srcPath,
+      },
+    },
   });
 
   const server = await preview();
-  await ofetch('http://localhost:4173/hello');
+  await ofetch('http://localhost:4173/api/hello');
 
   server.httpServer.close();
 });
