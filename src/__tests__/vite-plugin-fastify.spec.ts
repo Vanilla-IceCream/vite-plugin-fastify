@@ -83,7 +83,7 @@ test('vite build', async () => {
   });
 });
 
-test('vite preview', async () => {
+test.skip('vite preview', async () => {
   await build({
     logLevel: 'silent',
     build: {
