@@ -7,7 +7,10 @@ const start = async () => {
     await server.listen({ host: process.env.HOST, port: process.env.PORT });
   } catch (err) {
     server.log.error(err);
-    process.exit(1);
+
+    if (process.env.NODE_ENV === 'production') {
+      process.exit(1);
+    }
   }
 };
 

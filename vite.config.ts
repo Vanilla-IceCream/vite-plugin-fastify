@@ -12,5 +12,9 @@ export default defineConfig({
       external: ['child_process', 'path', 'vite'],
     },
   },
-  plugins: [dts()],
+  plugins: [
+    dts({
+      exclude: ['**/__tests__/**'],
+    }),
+  ],
 });

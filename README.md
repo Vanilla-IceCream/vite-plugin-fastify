@@ -90,7 +90,10 @@ const start = () => {
     await server.listen({ host: '127.0.0.1', port: 3000 });
   } catch (err) {
     server.log.error(err);
-    process.exit(1);
+    
+    if (process.env.NODE_ENV === 'production') {
+      process.exit(1);
+    }
   }
 };
 
@@ -126,7 +129,10 @@ const start = async () => {
     await server.listen({ host: '127.0.0.1', port: 3000 });
   } catch (err) {
     server.log.error(err);
-    process.exit(1);
+    
+    if (process.env.NODE_ENV === 'production') {
+      process.exit(1);
+    }
   }
 
 + if (import.meta.hot) {
@@ -144,5 +150,7 @@ const start = async () => {
 See the [`examples`](./examples) folder for more details.
 
 ## File-based Routing
+
+`vite-plugin-fastify` does not support `@fastify/autoload` when executing the build command, as Vite is a bundler that places bundled files in the `dist/assets` directory. If support is required, `@fastify/autoload` would need to be made compatible with `import.meta.glob` syntax, or alternatively, consider using `vite-plugin-fastify-routes`.
 
 - [vite-plugin-fastify-routes](https://github.com/Vanilla-IceCream/vite-plugin-fastify-routes)
