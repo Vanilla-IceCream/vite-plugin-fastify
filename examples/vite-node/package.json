@@ -7,15 +7,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fastify/one-line-logger": "^1.2.0",
-    "fastify": "^4.26.2",
-    "fastify-plugin": "^4.5.1"
+    "@fastify/one-line-logger": "^2.0.0",
+    "fastify": "^5.0.0",
+    "fastify-plugin": "^5.0.1"
   },
   "devDependencies": {
-    "@types/node": "^20.11.28",
-    "typescript": "^5.4.2",
-    "vite": "^5.1.6",
-    "vite-node": "^1.4.0",
+    "@types/node": "^20.16.10",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8",
+    "vite-node": "^2.1.2",
     "vite-plugin-fastify": "workspace:^"
   }
 }
