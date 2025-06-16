@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-fastify",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Fastify plugin for Vite with Hot-module Replacement.",
   "main": "./dist/vite-plugin-fastify.cjs",
   "module": "./dist/vite-plugin-fastify.js",
@@ -12,7 +12,8 @@
   "exports": {
     ".": {
       "import": "./dist/vite-plugin-fastify.js",
-      "require": "./dist/vite-plugin-fastify.cjs"
+      "require": "./dist/vite-plugin-fastify.cjs",
+      "types": "./dist/src/vite-plugin-fastify.d.ts"
     }
   },
   "scripts": {
