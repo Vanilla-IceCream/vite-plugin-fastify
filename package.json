@@ -11,9 +11,14 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/vite-plugin-fastify.js",
-      "require": "./dist/vite-plugin-fastify.cjs",
-      "types": "./dist/src/vite-plugin-fastify.d.ts"
+      "import": {
+        "types": "./dist/src/vite-plugin-fastify.d.ts",
+        "default": "./dist/vite-plugin-fastify.js"
+      },
+      "require": {
+        "types": "./dist/src/vite-plugin-fastify.d.ts",
+        "default": "./dist/vite-plugin-fastify.cjs"
+      }
     }
   },
   "scripts": {
