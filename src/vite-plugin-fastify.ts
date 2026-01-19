@@ -1,6 +1,6 @@
+import { spawn } from 'node:child_process';
+import path from 'node:path';
 import type { Plugin } from 'vite';
-import { spawn } from 'child_process';
-import path from 'path';
 import { mergeConfig } from 'vite';
 
 export interface PluginOptions {

@@ -4,7 +4,7 @@
   "description": "Fastify plugin for Vite with Hot-module Replacement.",
   "main": "./dist/vite-plugin-fastify.cjs",
   "module": "./dist/vite-plugin-fastify.js",
-  "types": "./dist/src/vite-plugin-fastify.d.ts",
+  "types": "./dist/vite-plugin-fastify.d.ts",
   "type": "module",
   "files": [
     "dist"
@@ -12,18 +12,19 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/src/vite-plugin-fastify.d.ts",
+        "types": "./dist/vite-plugin-fastify.d.ts",
         "default": "./dist/vite-plugin-fastify.js"
       },
       "require": {
-        "types": "./dist/src/vite-plugin-fastify.d.ts",
+        "types": "./dist/vite-plugin-fastify.d.ts",
         "default": "./dist/vite-plugin-fastify.cjs"
       }
     }
   },
   "scripts": {
     "build": "vite build",
-    "test": "vitest --run --coverage"
+    "check": "biome check --write",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -40,7 +41,11 @@
     "url": "https://github.com/Vanilla-IceCream/vite-plugin-fastify/issues"
   },
   "homepage": "https://github.com/Vanilla-IceCream/vite-plugin-fastify#readme",
+  "peerDependencies": {
+    "vite": "*"
+  },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.11",
     "@types/node": "^20.16.10",
     "@vitest/coverage-v8": "^2.1.2",
     "fastify": "^5.0.0",

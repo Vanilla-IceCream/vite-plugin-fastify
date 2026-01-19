@@ -1,7 +1,7 @@
 import path from 'path';
+import envify from 'process-envify';
 import { defineConfig } from 'vite';
 import fastify from 'vite-plugin-fastify';
-import envify from 'process-envify';
 
 export default defineConfig({
   define: envify({
